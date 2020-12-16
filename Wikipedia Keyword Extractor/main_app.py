@@ -35,6 +35,7 @@ while True:
             link= str(values['input_link'])
         except Exception as e:
             sg.Popup('Please enter a URL')
+            
         #apply all the functions here, web scarping, data cleaning, keywords and finding words that are more than 10
             
         wikipedia_page = wikipedia_web_scraper(link)
@@ -45,17 +46,24 @@ while True:
     
         #visualisations
         
-        pie_chart = visualise_piechart(freq_top20)
-        fig_canvas_agg = draw_figure(window['canvas'].TKCanvas, pie_chart)
-        bc= bar_chart(freq_top20)
-        fig_canvas_agg = draw_figure(window['canvas'].TKCanvas, bc)
-        word_cloud= word_cloud_2(keywords_noun) 
-        fig_canvas_agg = draw_figure(window['canvas'].TKCanvas, word_cloud)
+        # Create a main figure and all subplots (bar chart, pie chart and a word cloud)
+        fig = plt.figure(figsize=(15, 10))
+        outer = gridspec.GridSpec(2, 2, wspace=0.5, hspace=0.5)
+        inner = gridspec.GridSpecFromSubplotSpec(1, 2,
+                    subplot_spec=outer[0], wspace=0.5, hspace=0.3)
+        ax = plt.Subplot(fig, inner[0])
+        ax = bar_chart(freq_top20, ax) # visualize the chart on the subplot
+        fig.add_subplot(ax)
+        ax = plt.Subplot(fig, inner[1])
+        ax = visualise_piechart(freq_top20, ax) # visualize the chart on the subplot
+        fig.add_subplot(ax)
+        inner = gridspec.GridSpecFromSubplotSpec(1, 1,
+                    subplot_spec=outer[2], wspace=0.2, hspace=0.2)
+        ax = plt.Subplot(fig, inner[0])
+        ax = word_cloud_2(keywords_noun, ax) # visualize the chart on the subplot
+        fig.add_subplot(ax)
+        fig= plt.gcf()
+        fig_canvas_agg = draw_figure(window['canvas'].TKCanvas,fig )
                 
-        
-
-       
-     
-        
-        
+                
 window.close()
