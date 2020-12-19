@@ -16,10 +16,10 @@ def draw_figure(canvas, figure, loc=(0, 0)):
     return figure_canvas_agg
 
 layout = [  [sg.Text('      '),sg.Text('                        Wikipedia Article Keyword Extractor')],
-            [sg.Text('Enter URL Here:'), sg.Input(key='input_link', enable_events=True),sg.Button('Process',enable_events=True)], 
+            [sg.Text('Enter URL Here:'), sg.Input(key='input_link', enable_events=True),sg.Button('Process',enable_events=True,button_color=('white', '#061661'))], 
             [sg.Text('')], 
             [sg.Canvas(size=(500, 300), key='canvas', background_color= '#e3e3e3')],
-            [sg.OK(), sg.Cancel()]] 
+            [sg.Cancel(button_color=('white', '#061661'))]] 
 #window.Maximize= True
 window = sg.Window('Wikipedia Article Keyword Extractor', layout)
 
