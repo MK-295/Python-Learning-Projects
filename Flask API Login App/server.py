@@ -1,4 +1,4 @@
-def store_user_info(username, password): 
+def store_user_info(username:String, password:String): 
     '''
     This function takes in a username and password as a string, checks if it is in the database, if it is then a new username is required, 
     otherwise the users details will be added to the database
@@ -13,7 +13,7 @@ def store_user_info(username, password):
         print ('Details updated')
     return database
   
-def check_user_info(username, password):
+def check_user_info(username: String, password:String):
     '''
     Checks if the username and password a user has entered matches with the details in the database
     '''
