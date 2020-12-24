@@ -1,27 +1,45 @@
-def store_user_info(username:String, password:String): 
+import json
+
+def store_user_info(username, password): 
+ 
     '''
     This function takes in a username and password as a string, checks if it is in the database, if it is then a new username is required, 
     otherwise the users details will be added to the database
     '''
     username=str(username)
     password=str(password)
+    
     database={'sarah': 'dolphins','tom':'puppies'}
-    if username in database:
-        print ('Username already exists, please try again')
+    
+    # convert from dictionary to json - serialization
+    
+    json_file = json.dumps(database, indent = 4) 
+    
+    if username in json_file:
+        return False
     else:
-        database.update({username : password})
-        print ('Details updated')
-    return database
-  
-def check_user_info(username: String, password:String):
+        new_data = {username: password} 
+        parse_json = json.loads(json_file) 
+        
+        # appending the data 
+        parse_json.update(new_data) 
+        return True
+    
+   
+def check_user_info(username, password):
     '''
     Checks if the username and password a user has entered matches with the details in the database
     '''
     
     database={'sarah': 'dolphins','tom':'puppies'}
-    if (username, password) in database.items():
-        True
+    
+    json_file = json.dumps(database, indent = 4) 
+    
+    
+    if username in json_file:
+        if password in json_file:
+            return True
     else: 
-        False
-    return 
+        return False
+
     
